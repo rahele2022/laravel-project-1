@@ -34,7 +34,7 @@
             <div class="col-md-10">
                 <div class="page-header">
                     <h2>لیست کاربران</h2>
-                    <button class="button button1">افزودن کاربر جدید</button>
+                    <button class="button button1" onclick="document . location = '/create'">افزودن کاربر جدید</button>
 
                 </div>
     <table class="table">

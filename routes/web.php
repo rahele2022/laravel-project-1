@@ -14,3 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'home']);
+Route::get('/create' , [\App\Http\Controllers\HomeController::class , 'create']);
+Route::post('/create' , [\App\Http\Controllers\HomeController::class , 'store']);

@@ -8,6 +8,7 @@ use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CustomersTableSeeder extends Seeder
 {
@@ -18,20 +19,6 @@ class CustomersTableSeeder extends Seeder
      */
     public function run()
     {
-//        Customer::factory()->count(10)->create();
-
-        $faker = \Faker\Factory::create() ;
-        foreach (range(1,10) as $item){
-            DB::table('customers')->insert([
-                'age'=>$faker->randomNumber(2),
-                'name'=>$faker->name,
-                'family'=>$faker->lastName,
-                'email'=> $faker->email,
-                'created_at'=>now(),
-                'updated_at'=>now()
-
-            ]);
-        }
-
+       Customer::factory(10)->create();
     }
 }
