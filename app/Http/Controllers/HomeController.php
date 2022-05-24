@@ -9,10 +9,11 @@ use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
-    public function home()
+    public function index()
     {
-        $customers= Customer::orderBy('id')->get();
-        return view('index');
+        return view('index',[
+            'customers'=> Customer::all()
+        ]);
     }
     public function create()
     {
@@ -29,12 +30,39 @@ class HomeController extends Controller
         ])->validated();
 
             Customer::create([
-            'age'=> $validate_data('age'),
-            'name'=> $validate_data('name'),
-            'family'=> $validate_data('family'),
-            'email'=> $validate_data('email')
+            'name'=> $validate_data['name'],
+            'family'=> $validate_data['family'],
+            'email'=> $validate_data['email'],
+            'age'=> $validate_data['age']
         ]);
             return redirect('/');
+    }
+    public function edit($id)
+    {
+        $customer = Customer::findOrFail($id);
+        return view('customers.edit' , [
+            'customer'=>$customer
+        ]);
+    }
+    public function update($id)
+    {
+        $validate_data = Validator::make(request()->all() , [
+            'name'=> 'required|min:3 |max:50',
+            'family'=> 'required',
+            'email'=> 'required',
+            'age'=> 'required'
+        ])->validated();
+
+        $customer = Customer::findOrFail($id);
+        $customer-> update($validate_data);
+        return redirect('/');
+    }
+
+    public function delete($id)
+    {
+        $customer = Customer::findOrFail($id);
+        $customer->delete();
+        return back();
     }
 
 }

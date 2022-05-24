@@ -49,14 +49,22 @@
         </thead>
 
         <tbody>
+        @foreach($customers as $customer)
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><button class="button button2">ویرایش</button></td>
-                <td><button class="button button3">حذف</button></td>
+                <td>{{ $customer->age }}</td>
+                <td>{{ $customer->name }}</td>
+                <td>{{ $customer->family }}</td>
+                <td>{{ $customer->email }}</td>
+                <td><button class="button button2" onclick="document . location = '/{{ $customer->id }}/edit'">ویرایش</button></td>
+                <td>
+                <form action="/{{$customer->id}}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button class="button button3">حذف</button>
+                </form>
+                </td>
             </tr>
+        @endforeach
 
         </tbody>
     </table>

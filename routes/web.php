@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'home']);
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/create' , [\App\Http\Controllers\HomeController::class , 'create']);
 Route::post('/create' , [\App\Http\Controllers\HomeController::class , 'store']);
+Route::get('/{id}/edit' , [\App\Http\Controllers\HomeController::class , 'edit']);
+Route::put('/{id}/edit' , [\App\Http\Controllers\HomeController::class , 'update']);
+Route::delete('/{id}' , [\App\Http\Controllers\HomeController::class , 'delete']);
+
