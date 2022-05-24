@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
@@ -20,14 +21,9 @@ class HomeController extends Controller
         return view('customers.create');
 
     }
-    public function store()
+    public function store(CustomerRequest $request)
     {
-        $validate_data = Validator::make(request()->all() , [
-            'name'=> 'required|min:3 |max:50',
-            'family'=> 'required',
-            'email'=> 'required',
-            'age'=> 'required'
-        ])->validated();
+            $validate_data = $request->validated();
 
             Customer::create([
             'name'=> $validate_data['name'],
@@ -44,15 +40,9 @@ class HomeController extends Controller
             'customer'=>$customer
         ]);
     }
-    public function update($id)
+    public function update( CustomerRequest $request,$id)
     {
-        $validate_data = Validator::make(request()->all() , [
-            'name'=> 'required|min:3 |max:50',
-            'family'=> 'required',
-            'email'=> 'required',
-            'age'=> 'required'
-        ])->validated();
-
+        $validate_data = $request->validated();
         $customer = Customer::findOrFail($id);
         $customer-> update($validate_data);
         return redirect('/');

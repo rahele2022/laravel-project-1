@@ -38,7 +38,7 @@
                 <label class="col-md text-right"><span class="error">*</span>نام خانوادگی</label>
                 <input type="text" name="family" class="form-control"><br>
                 <label class="col-md text-right"><span class="error">*</span>ایمیل</label>
-                <input type="text" name="email" class="form-control"><br>
+                <input type="email" name="email" class="form-control"><br>
                 <label class="col-md text-right"><span class="error">*</span>سن</label>
                 <input type="text" name="age" class="form-control"><br>
                 <button type="submit" name="submit" class="btn btn-primary">ثبت نام</button>
