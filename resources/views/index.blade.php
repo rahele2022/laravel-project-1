@@ -1,3 +1,4 @@
+@include('customers.header')
 <html dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -32,6 +33,11 @@
     <div class="container mt-3">
         <div class="row">
             <div class="col-md-10">
+                @if(Session::has('success'))
+                    <div class="alert alert-success">
+                        {{ Session::get('success') }}
+                    </div>
+                @endif
                 <div class="page-header">
                     <h2>لیست کاربران</h2>
                     <button class="button button1" onclick="document . location = '/create'">افزودن کاربر جدید</button>

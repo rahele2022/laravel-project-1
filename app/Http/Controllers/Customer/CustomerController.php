@@ -1,18 +1,27 @@
 <?php
 
-namespace App\Http;
+namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CustomerRequest;
+use App\Mail\TestMail;
 use App\Models\Customer;
+use Illuminate\Support\Facades\Mail;
 use function back;
 use function redirect;
 use function view;
 
-class HomeController extends Controller
+class CustomerController extends Controller
 {
+
+  public function __construct()
+  {
+      $this->middleware('auth');
+  }
     public function index()
     {
+//        dd(auth()->user());
+//          dd(auth()->check());
         return view('index',[
             'customers'=> Customer::all()
         ]);
@@ -32,7 +41,13 @@ class HomeController extends Controller
             'email'=> $validate_data['email'],
             'age'=> $validate_data['age']
         ]);
-            return redirect('/');
+
+
+            $customer = Customer::find($validate_data);
+            Mail::to($validate_data['email'])->send(new TestMail($validate_data['name'], $validate_data['family']));
+
+//            Mail::to('r.manzari@gmail.com')->send(new TestMail('Rahele' , 2022));
+            return redirect('/')->withsuccess('اطلاعات کاربر با موفقیت ثبت شد');
     }
     public function edit(Customer $customer)
     {
@@ -46,14 +61,14 @@ class HomeController extends Controller
         $validate_data = $request->validated();
         $customer = Customer::findOrFail($id);
         $customer-> update($validate_data);
-        return redirect('/');
+        return redirect('/')->withsuccess('اطلاعات کاربر با موفقیت ویرایش شد');
     }
 
     public function delete($id)
     {
         $customer = Customer::findOrFail($id);
         $customer->delete();
-        return back();
+        return redirect('/')->withsuccess('اطلاعات کاربر با موفقیت حذف شد');
     }
 
 }

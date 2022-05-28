@@ -13,14 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\HomeController::class, 'index']);
-Route::get('/create' , [\App\Http\HomeController::class , 'create']);
-Route::post('/create' , [\App\Http\HomeController::class , 'store']);
-Route::get('/{customer}/edit' , [\App\Http\HomeController::class , 'edit']);
-Route::put('/{id}/edit' , [\App\Http\HomeController::class , 'update']);
-Route::delete('/{id}' , [\App\Http\HomeController::class , 'delete'])->middleware('auth');
+Route::get('/', [\App\Http\Controllers\Customer\CustomerController::class, 'index']);
+Route::get('/create' , [\App\Http\Controllers\Customer\CustomerController::class , 'create']);
+Route::post('/create' , [\App\Http\Controllers\Customer\CustomerController::class , 'store']);
+Route::get('/{customer}/edit' , [\App\Http\Controllers\Customer\CustomerController::class , 'edit']);
+Route::put('/{id}/edit' , [\App\Http\Controllers\Customer\CustomerController::class , 'update']);
+Route::delete('/{id}' , [\App\Http\Controllers\Customer\CustomerController::class , 'delete']);
 
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
