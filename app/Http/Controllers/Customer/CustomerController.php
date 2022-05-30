@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Jobs\SendWelcomeEmailJob;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CustomerRequest;
 use App\Mail\TestMail;
@@ -42,9 +43,12 @@ class CustomerController extends Controller
             'age'=> $validate_data['age']
         ]);
 
+//            $details['name'] = $validate_data['name'];
+            $details['email'] = $validate_data['email'];
+            dispatch(new SendWelcomeEmailJob($details));
 
-            $customer = Customer::find($validate_data);
-            Mail::to($validate_data['email'])->send(new TestMail($validate_data['name'], $validate_data['family']));
+//            $customer = Customer::find($validate_data);
+//            Mail::to($validate_data['email'])->send(new TestMail($validate_data['name'], $validate_data['family']));
 
 //            Mail::to('r.manzari@gmail.com')->send(new TestMail('Rahele' , 2022));
             return redirect('/')->withsuccess('اطلاعات کاربر با موفقیت ثبت شد');

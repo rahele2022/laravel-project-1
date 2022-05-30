@@ -11,17 +11,14 @@ class TestMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $name;
-    public $family;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($name , $family)
+    public function __construct()
     {
-        $this->name = $name;
-        $this->family = $family;
+
     }
 
     /**
@@ -34,5 +31,6 @@ class TestMail extends Mailable
         return $this
             ->view('mails.email')
             ->subject('ایمیل ثبت کاربر جدید');
+
     }
 }

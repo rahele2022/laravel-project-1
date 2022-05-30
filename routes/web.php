@@ -21,5 +21,6 @@ Route::put('/{id}/edit' , [\App\Http\Controllers\Customer\CustomerController::cl
 Route::delete('/{id}' , [\App\Http\Controllers\Customer\CustomerController::class , 'delete']);
 
 
-Auth::routes();
+Auth::routes(['verify' => true]);
+
 
