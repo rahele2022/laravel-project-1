@@ -31,7 +31,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="/{{ $customer->id }}/edit" method="post">
+            <form action="/admin/{{ $customer->id }}/edit" method="post">
                 @csrf
                 @method('put')
                 <label class="col-md text-right"><span class="error">*</span>نام</label>

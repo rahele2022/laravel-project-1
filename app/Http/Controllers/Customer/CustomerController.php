@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CustomerRequest;
 use App\Mail\TestMail;
 use App\Models\Customer;
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use function back;
 use function redirect;
@@ -56,9 +58,30 @@ class CustomerController extends Controller
     public function edit(Customer $customer)
     {
 //        $customer = Customer::findOrFail($id);
+
+//        if (Gate::allows('edit-user' , $customer))
+//        {
+//            return view('customers.edit' , [
+//                'customer'=>$customer
+//            ]);
+//        }
+//        abort(403);
+
+//        $this->authorize('edit-user' , $customer);
+
+//        if (auth()->customer()->can('edit-user' , $customer))
+//
+//        return view('customers.edit' , [
+//            'customer'=>$customer
+//        ]);
+//        abort(403);
+
+    if (Gate::allows('edit', $customer)){
         return view('customers.edit' , [
             'customer'=>$customer
         ]);
+    }
+        abort(403);
     }
     public function update( CustomerRequest $request,$id)
     {
@@ -68,11 +91,16 @@ class CustomerController extends Controller
         return redirect('/')->withsuccess('اطلاعات کاربر با موفقیت ویرایش شد');
     }
 
-    public function delete($id)
+    public function delete($id , Customer $customer)
     {
-        $customer = Customer::findOrFail($id);
-        $customer->delete();
-        return redirect('/')->withsuccess('اطلاعات کاربر با موفقیت حذف شد');
+        if (Gate::allows('delete' , $customer)) {
+                $customer = Customer::findOrFail($id);
+                 $customer->delete();
+            return redirect('/')->withsuccess('اطلاعات کاربر با موفقیت حذف شد');
+        }
+
+
+
     }
 
 }

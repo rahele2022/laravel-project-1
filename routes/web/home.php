@@ -16,9 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [\App\Http\Controllers\Customer\CustomerController::class, 'index']);
 Route::get('/create' , [\App\Http\Controllers\Customer\CustomerController::class , 'create']);
 Route::post('/create' , [\App\Http\Controllers\Customer\CustomerController::class , 'store']);
-Route::get('/{customer}/edit' , [\App\Http\Controllers\Customer\CustomerController::class , 'edit']);
-Route::put('/{id}/edit' , [\App\Http\Controllers\Customer\CustomerController::class , 'update']);
-Route::delete('/{id}' , [\App\Http\Controllers\Customer\CustomerController::class , 'delete']);
+
 
 
 Auth::routes(['verify' => true]);

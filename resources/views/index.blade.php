@@ -61,14 +61,19 @@
                 <td>{{ $customer->name }}</td>
                 <td>{{ $customer->family }}</td>
                 <td>{{ $customer->email }}</td>
-                <td><button class="button button2" onclick="document . location = '/{{ $customer->id }}/edit'">ویرایش</button></td>
+                @can('edit' , $customer)
+                <td><button class="button button2" onclick="document . location = '/admin/{{ $customer->id }}/edit'">ویرایش</button></td>
+                @endcan
+
+                @can('delete', $customer)
                 <td>
-                <form action="/{{$customer->id}}" method="post">
+                <form action="/admin/{{$customer->id}}" method="post">
                     @csrf
                     @method('delete')
                     <button class="button button3">حذف</button>
                 </form>
                 </td>
+                @endcan
             </tr>
         @endforeach
 

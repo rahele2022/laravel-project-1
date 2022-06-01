@@ -21,6 +21,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'is_superuser',
+        'is_staff',
     ];
 
     /**
@@ -41,4 +43,15 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isSuperUser()
+    {
+        return $this->is_superuser;
+    }
+
+    public function isStaffUser()
+    {
+        return $this->is_staff;
+    }
+
 }
