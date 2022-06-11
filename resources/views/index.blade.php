@@ -1,4 +1,4 @@
-@include('customers.header')
+@include('users.header')
 <html dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -46,34 +46,34 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">#</th>
+{{--                <th scope="col">#</th>--}}
                 <th scope="col">نام</th>
-                <th scope="col">نام خانوادگی</th>
+{{--                <th scope="col">نام خانوادگی</th>--}}
                 <th scope="col">ایمیل</th>
                 <th scope="col">اقدامات</th>
             </tr>
         </thead>
 
         <tbody>
-        @foreach($customers as $customer)
+        @foreach($user as $user)
             <tr>
-                <td>{{ $customer->age }}</td>
-                <td>{{ $customer->name }}</td>
-                <td>{{ $customer->family }}</td>
-                <td>{{ $customer->email }}</td>
-                @can('edit' , $customer)
-                <td><button class="button button2" onclick="document . location = '/admin/{{ $customer->id }}/edit'">ویرایش</button></td>
-                @endcan
+{{--                <td>{{ $user->age }}</td>--}}
+                <td>{{ $user->name }}</td>
+{{--                <td>{{ $user->family }}</td>--}}
+                <td>{{ $user->email }}</td>
+{{--                @can('admin')--}}
+                <td><button class="button button2" onclick="document . location = '/admin/{{ $user->id }}/edit'">ویرایش</button></td>
+{{--                @endcan--}}
 
-                @can('delete', $customer)
+{{--                @can('admin')--}}
                 <td>
-                <form action="/admin/{{$customer->id}}" method="post">
+                <form action="/admin/{{$user->id}}" method="post">
                     @csrf
                     @method('delete')
                     <button class="button button3">حذف</button>
                 </form>
                 </td>
-                @endcan
+{{--                @endcan--}}
             </tr>
         @endforeach
 

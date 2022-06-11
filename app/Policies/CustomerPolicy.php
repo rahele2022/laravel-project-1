@@ -11,12 +11,13 @@ class CustomerPolicy
 {
     use HandlesAuthorization;
 
- public function edit(User $user , Customer $currentCustomer)
- {
-     return ($user->id == 1 || $user->id == $currentCustomer->id);
- }
- public function delete(User $user , Customer $currentCustomer)
- {
-     return $user->id == 1;
- }
+    public function edit(User $user, Customer $currentCustomer)
+    {
+        return ($user->id == 1 || $user->id == $currentCustomer->id);
+    }
+
+    public function delete(User $user, Customer $currentCustomer)
+    {
+        return $user->id == 1;
+    }
 }

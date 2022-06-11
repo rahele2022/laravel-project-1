@@ -21,8 +21,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'is_superuser',
-        'is_staff',
     ];
 
     /**
@@ -44,14 +42,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function isSuperUser()
+    public function role()
     {
-        return $this->is_superuser;
+        return $this->belongsTo(Role::class );
+
     }
 
-    public function isStaffUser()
-    {
-        return $this->is_staff;
-    }
 
 }

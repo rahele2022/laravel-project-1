@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Policies\CustomerPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -26,13 +27,13 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(GateContract $gate)
     {
-        $this->registerPolicies();
+        $this->registerPolicies($gate);
 
-//        Gate::define('edit-user' , function ($customer , $currentCustomer){
-//            return $customer->id == $currentCustomer->id;
-//        });
+    $gate->define('admin' , function ($role){
+        return $role->user_type == 'admin';
+    });
 
     }
 }

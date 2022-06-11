@@ -20,7 +20,7 @@
     <div class="container mt-3">
         <div class="form">
             <div class="page-header">
-                <h5 class="col-md text-center">صفحه ورود کاربران</h5><br>
+                <h5 class="col-md text-center">ویرایش اطلاعات کاربران</h5><br>
             </div>
             @if($errors->any())
                 <div class="alert alert-danger">
@@ -31,17 +31,18 @@
                     </ul>
                 </div>
             @endif
-            <form action="/create" method="post">
+            <form action="/admin/{{ $user->id }}/edit" method="post">
                 @csrf
+                @method('put')
                 <label class="col-md text-right"><span class="error">*</span>نام</label>
-                <input type="text" name="name" class="form-control"><br>
+                <input type="text" name="name" class="form-control" value="{{ $user->name }}"><br>
                 <label class="col-md text-right"><span class="error">*</span>نام خانوادگی</label>
-                <input type="text" name="family" class="form-control"><br>
-                <label class="col-md text-right"><span class="error">*</span>ایمیل</label>
-                <input type="email" name="email" class="form-control"><br>
-                <label class="col-md text-right"><span class="error">*</span>سن</label>
-                <input type="text" name="age" class="form-control"><br>
-                <button type="submit" name="submit" class="btn btn-primary">ثبت نام</button>
+{{--                <input type="text" name="family" class="form-control" value="{{ $customer->family }}"><br>--}}
+{{--                <label class="col-md text-right"><span class="error">*</span>ایمیل</label>--}}
+                <input type="text" name="email" class="form-control" value="{{ $user->email }}"><br>
+{{--                <label class="col-md text-right"><span class="error">*</span>سن</label>--}}
+{{--                <input type="text" name="age" class="form-control" value="{{ $customer->age }}"><br>--}}
+                <button type="submit" name="submit" class="btn btn-info">ویرایش</button>
             </form>
 
         </div>
