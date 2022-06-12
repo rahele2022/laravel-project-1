@@ -1,4 +1,3 @@
-@include('users.header')
 <html dir="rtl">
 <head>
     <meta charset="UTF-8">
