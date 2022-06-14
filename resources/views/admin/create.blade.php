@@ -17,6 +17,10 @@
         }
     </style>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
 </head>
 <body>
 <div class="container mt-3">
@@ -33,13 +37,19 @@
                 </ul>
             </div>
         @endif
-        <form action="/create" method="post">
+        <form action="/admin/create" method="post" enctype="multipart/form-data">
             @csrf
-            <lable class="col-md-2 text-right">نوع کاربر</lable>
-            <label class="col-md-2 text-right" >اکانت</label>
-            <input type="checkbox" value="account">
-            <label class="col-md-2 text-right">کاربر</label>
-            <input type="checkbox" value="user"><br><br>
+            <lable class=" text-right">نوع کاربر</lable>
+            <div class="form-check-inline">
+                <input type="radio" class="form-check-input" id="radio1" name="role_id" value="type">
+                <label class="form-check-label" for="radio1">اکانت</label>
+            </div>
+            <div class="form-check-inline">
+                <input type="radio" class="form-check-input" id="radio2" name="role_id" value="type" checked>
+                <label class="form-check-label" for="radio2">کاربر</label>
+            </div><br><br>
+
+
             <label class="col-md text-right"><span class="error">*</span>نام و نام خانوادگی</label>
             <input type="text" name="name" class="form-control"><br>
             <label class="col-md text-right"><span class="error">*</span>ایمیل</label>
@@ -48,6 +58,8 @@
             <input type="password" name="password" class="form-control"><br>
             <label class="col-md text-right"><span class="error">*</span>تکرار رمز عبور</label>
             <input type="password" name="password-confirm" class="form-control"><br>
+            <label class="col-md text-right">تصویر</label>
+            <input type="file" name="image" class="form-control"><br>
             <button type="submit" name="submit" class="btn btn-primary">ثبت نام</button>
         </form>
 

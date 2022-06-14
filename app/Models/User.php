@@ -17,10 +17,16 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array<int, string>
      */
+    const USER_TYPE = 1;
+    const ADMIN_TYPE = 2;
+    const ACCOUNT_TYPE = 3;
+
     protected $fillable = [
+        'role_id',
         'name',
         'email',
         'password',
+
     ];
 
     /**
@@ -42,9 +48,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+
     public function role()
     {
-        return $this->belongsTo(Role::class );
+        return $this->belongsTo(Role::class);
 
     }
 

@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\Customer\CustomerController::class, 'index']);
-Route::get('/create' , [\App\Http\Controllers\Customer\CustomerController::class , 'create']);
-Route::post('/create' , [\App\Http\Controllers\Customer\CustomerController::class , 'store']);
+Route::get('/', [\App\Http\Controllers\User\UserController::class, 'index']);
+Route::get('/create' , [\App\Http\Controllers\User\UserController::class , 'create']);
+Route::post('/create' , [\App\Http\Controllers\User\UserController::class , 'store']);
 
 
 

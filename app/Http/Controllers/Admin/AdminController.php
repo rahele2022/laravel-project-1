@@ -20,7 +20,7 @@ class AdminController extends Controller
 
     public function show()
     {
-        return view('index', [
+        return view('/', [
             'user' => User::all()
         ]);
     }
@@ -28,7 +28,7 @@ class AdminController extends Controller
 
     public function create()
     {
-        return view('users.create');
+        return view('admin.create');
 
     }
 
@@ -36,12 +36,28 @@ class AdminController extends Controller
     {
         $validate_data = $request->validated();
 
-        auth()->user()->create([
+        $validate_data = $request->validate([
+            'image' => 'mimes:jpg,jpeg|max:20'
+        ]);
+
+        User::create([
+
+            'role_id' => 1,
             'name' => $validate_data['name'],
             'email' => $validate_data['email'],
             'password' => $validate_data['password'],
-            'password-confirm' => $validate_data['password-confirm']
+            'password-confirm' => $validate_data['password-confirm'],
+
         ]);
+
+
+
+
+        $file = $request->file('image');
+        $destinationpath = '/images/' . now()->year . '/' . now()->month . '/' . now()->day . '/';
+        $file->move(public_path($destinationpath), $file->getClientOriginalName());
+        $validate_data['image'] = $destinationpath . $file->getClientOriginalName();
+
         $details['email'] = $validate_data['email'];
         dispatch(new SendWelcomeEmailJob($details));
         return redirect('/')->withsuccess('اطلاعات کاربر با موفقیت ثبت شد');
@@ -50,7 +66,7 @@ class AdminController extends Controller
     public function edit(User $user)
     {
         if (Gate::allows('edit', $user)) {
-            return view('users.edit', [
+            return view('admin.edit', [
                 'user' => $user
             ]);
         }
@@ -60,10 +76,19 @@ class AdminController extends Controller
     public function update(UserRequest $request, $id)
     {
         $validate_data = $request->validated();
+        $validate_data = $request->validate([
+            'image' => 'mimes:jpg,jpeg|max:20',
+            'email' => 'email',
+        ]);
         $user = User::findOrFail($id);
+        $file = $request->file('image');
+        $file->move(public_path('images'), $file->getClientOriginalName());
         $user->update($validate_data);
         return redirect('/')->withsuccess('اطلاعات کاربر با موفقیت ویرایش شد');
+
+
     }
+
 
     public function delete($id, User $user)
     {

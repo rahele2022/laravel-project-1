@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Customer;
+namespace App\Http\Controllers\User;
 
 use App\Jobs\SendWelcomeEmailJob;
 use App\Http\Controllers\Controller;
@@ -15,7 +15,7 @@ use function back;
 use function redirect;
 use function view;
 
-class CustomerController extends Controller
+class UserController extends Controller
 {
 
 //    public function __construct()
@@ -25,12 +25,6 @@ class CustomerController extends Controller
 
     public function index()
     {
-//        $user = User::find(2);
-//         $user->role()->get();
-
-//        $role = Role::find(1);
-//       return $role->user()->get();
-
         return view('index', [
             'user' => User::all()
         ]);
@@ -38,7 +32,7 @@ class CustomerController extends Controller
 
     public function create()
     {
-        return view('users.create');
+        return view('admin.create');
 
     }
 
@@ -53,40 +47,17 @@ class CustomerController extends Controller
             'password-confirm' => $validate_data['password-confirm']
         ]);
 
-//            $details['name'] = $validate_data['name'];
         $details['email'] = $validate_data['email'];
         dispatch(new SendWelcomeEmailJob($details));
 
-//            $customer = Customer::find($validate_data);
-//            Mail::to($validate_data['email'])->send(new TestMail($validate_data['name'], $validate_data['family']));
-
-//            Mail::to('r.manzari@gmail.com')->send(new TestMail('Rahele' , 2022));
         return redirect('/')->withsuccess('اطلاعات کاربر با موفقیت ثبت شد');
     }
 
     public function edit(Customer $customer)
     {
-//        $customer = Customer::findOrFail($id);
-
-//        if (Gate::allows('edit-user' , $customer))
-//        {
-//            return view('users.edit' , [
-//                'customer'=>$customer
-//            ]);
-//        }
-//        abort(403);
-
-//        $this->authorize('edit-user' , $customer);
-
-//        if (auth()->customer()->can('edit-user' , $customer))
-//
-//        return view('users.edit' , [
-//            'customer'=>$customer
-//        ]);
-//        abort(403);
 
         if (Gate::allows('edit', $customer)) {
-            return view('users.edit', [
+            return view('admin.edit', [
                 'customer' => $customer
             ]);
         }

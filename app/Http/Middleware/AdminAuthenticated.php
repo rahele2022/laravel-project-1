@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
-
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -16,7 +16,7 @@ class AdminAuthenticated
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->isSuperUser() || $request->user()->isStaffUser() ){
+        if ($request->user()->role_id == 2){
             return $next($request);
         }
        return redirect('/');
