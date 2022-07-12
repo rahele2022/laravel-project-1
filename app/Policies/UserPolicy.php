@@ -12,21 +12,28 @@ class UserPolicy
 
     use HandlesAuthorization;
 
-    public function create(User $user , Role $role)
+    public function show(User $user, Role $role)
+
     {
-        return ($user->role_id == 2 || $user->role_id == 3);
+        return $user->role_id === $role->id;
     }
 
-    public function edit(User $user, User$currentUser)
+    public function edit(User $user)
     {
-        return ($user->role_id == 1 ||  $user->role_id == 2 || $user->role_id == 3) ;
+        return $user->role_id === Role::TYPE_ADMIN || $user->role_id === Role::TYPE_USER || Role::TYPE_ACCOUNT;
     }
 
-    public function delete(User $user, User $currentUser)
+    public function create(User $user)
     {
-        return $user->role_id == 2;
+
+        return $user->role_id === Role::TYPE_ADMIN || $user->role_id === Role::TYPE_ACCOUNT;
     }
 
+
+    public function destroy(User $user)
+    {
+        return $user->role_id == Role::TYPE_ADMIN;
+    }
 
 
 }

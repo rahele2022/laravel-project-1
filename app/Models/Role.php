@@ -9,13 +9,16 @@ class Role extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+    const TYPE_USER = 1;
+    const TYPE_ADMIN = 2;
+    const TYPE_ACCOUNT= 3;
 
-        'user_type',
-    ];
+    protected $fillable = ['title'];
 
-    public function user()
+    public function users()
     {
         return $this->hasMany(User::class);
     }
+
+
 }

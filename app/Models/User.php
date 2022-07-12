@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -17,15 +18,17 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array<int, string>
      */
-    const USER_TYPE = 1;
-    const ADMIN_TYPE = 2;
-    const ACCOUNT_TYPE = 3;
+
 
     protected $fillable = [
+
         'role_id',
+        'operator_id',
         'name',
         'email',
         'password',
+        'image',
+
 
     ];
 
@@ -54,6 +57,5 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Role::class);
 
     }
-
 
 }

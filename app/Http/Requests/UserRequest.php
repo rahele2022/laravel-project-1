@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserRequest extends FormRequest
 {
@@ -24,10 +26,14 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3 |max:50',
-            'email' => 'required',
-            'password' => 'required',
-            'password-confirm' => 'required'
+
+            'role_id'=> 'required',
+            'name'=> 'required|min:3 |max:50',
+            'email' => 'required | email',
+            'password'=> 'required | min:8',
+            'password-confirm'=> 'required',
+            'image'=> 'mimes: jpg , jpeg | max:50',
+
         ];
     }
 }

@@ -22,11 +22,11 @@ class ConfirmPasswordController extends Controller
     use ConfirmsPasswords;
 
     /**
-     * Where to redirect admin when the intended url fails.
+     * Where to redirect users when the intended url fails.
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/users';
 
     /**
      * Create a new controller instance.

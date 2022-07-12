@@ -27,11 +27,6 @@
             background-color: red;
             padding: 3px 15px;
         }
-
-        .button4 {
-            background-color: #6f42c1;
-            padding: 3px 15px;
-        }
     </style>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -40,7 +35,6 @@
 </head>
 
 <body>
-
 <div class="container mt-3">
     <div class="row">
         <div class="col-md-10">
@@ -51,14 +45,13 @@
             @endif
             <div class="page-header">
                 <h2>لیست کاربران</h2>
-                @can('create' , $user)
 
-                    <button class="button button1" onclick="document . location = '/users/create'">افزودن کاربر جدید
-                    </button>
-                @endcan
+                <button class="button button1" onclick="document . location = '/create'">افزودن کاربر جدید
+                </button>
+
             </div>
+{{--                @can('show' , $user)--}}
             <table class="table">
-
                 <thead>
                 <tr>
                     <th scope="col">نام</th>
@@ -67,44 +60,30 @@
                 </tr>
                 </thead>
 
-
                 <tbody>
                 @foreach($user as $user)
                     <tr>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
-
+{{--                        @endcan--}}
                         <td>
-                            <button class="button button4" onclick="document . location = '/users/{{ $user->id }}'">
-                                نمایش اطلاعات
+                            <button class="button button2"
+                                    onclick="document . location = '/{{ $user->id }}/edit'">ویرایش
                             </button>
                         </td>
 
-
                         <td>
-
-                            @can('edit', $user)
-                                <button class="button button2"
-                                        onclick="document . location = '/users/{{ $user->id }}/edit'">ویرایش
-                                </button>
-                            @endcan
-
-                        </td>
-
-                        <td>
-                            <form action="/users/{{$user->id}}" method="post">
+                            <form action="/{{$user->id}}" method="post">
                                 @csrf
                                 @method('delete')
-
-
-                                @can('destroy' , $user)
-                                    <button class="button button3">حذف</button>
-                                @endcan
-
+{{--                                @canany(['delete'] , $user)--}}
+                                <button class="button button3">حذف</button>
+{{--                                @endcanany--}}
                             </form>
                         </td>
                     </tr>
                 @endforeach
+
                 </tbody>
             </table>
         </div>

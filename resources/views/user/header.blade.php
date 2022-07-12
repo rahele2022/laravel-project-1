@@ -6,7 +6,7 @@
         <button class="btn btn-danger">خروج</button>
     </form>
 @else
-<a href="{{ route('login') }}" class="btn-info">ورود</a>
+{{--<a href="{{ route('login') }}" class="btn-info">ورود</a>--}}
 @endif
         </div>
     </div>

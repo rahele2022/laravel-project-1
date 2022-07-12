@@ -2,9 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Customer;
 use App\Models\User;
-use App\Policies\CustomerPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -18,9 +16,10 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
 
-        User::class => UserPolicy::class
+        'App\Models\Model' => 'App\Policies\ModelPolicy',
+
+        User::class => UserPolicy::class,
 
     ];
 
@@ -32,6 +31,10 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(GateContract $gate)
     {
         $this->registerPolicies($gate);
+        Gate::guessPolicyNamesUsing(function ($user){
+            return UserPolicy::class;
+        });
+
 
     }
 }
